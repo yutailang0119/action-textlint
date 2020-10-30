@@ -1,11 +1,10 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'GitHub Action for textlint'
+description: 'Display textlint result on GitHub'
+author: 'Yutaro Muta'
 inputs:
-  milliseconds: # change this
-    required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  json_path:
+     description: 'The file path of the JSON lint report'
+     required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
