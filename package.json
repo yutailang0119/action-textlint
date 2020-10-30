@@ -25,7 +25,8 @@
   "author": "Yutaro Muta",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.6"
+    "@actions/core": "^1.2.6",
+    "@textlint/types": "^1.4.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
