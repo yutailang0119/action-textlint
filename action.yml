@@ -3,8 +3,8 @@ description: 'Display textlint result on GitHub'
 author: 'Yutaro Muta'
 inputs:
   json_path:
-     description: 'The file path of the JSON lint report'
-     required: true
+    description: 'The file path of the JSON lint report'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
