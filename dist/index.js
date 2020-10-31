@@ -3,7 +3,7 @@ require('./sourcemap-register.js');module.exports =
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 316:
+/***/ 548:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -170,7 +170,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseReport = void 0;
 const core = __importStar(__webpack_require__(186));
-const annotation_1 = __webpack_require__(316);
+const Annotation_1 = __webpack_require__(548);
 function parseReport(json) {
     return __awaiter(this, void 0, void 0, function* () {
         const files = JSON.parse(json);
@@ -179,7 +179,7 @@ function parseReport(json) {
                 const annotations = [];
                 for (const file of files) {
                     for (const message of file.messages) {
-                        const annotation = new annotation_1.Annotation(message.severity, file.filePath, message.line, message.column, `${message.ruleId}: ${message.message}`);
+                        const annotation = new Annotation_1.Annotation(message.severity, file.filePath, message.line, message.column, `${message.ruleId}: ${message.message}`);
                         annotations.push(annotation);
                     }
                 }
