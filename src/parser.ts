@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import {TextlintResult} from '@textlint/types/src/Message/TextlintResult'
-import {Annotation} from './annotation'
+import {Annotation} from './Annotation'
 
 export async function parseReport(json: string): Promise<Annotation[]> {
   const files: TextlintResult[] = JSON.parse(json)
