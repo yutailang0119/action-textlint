@@ -24,11 +24,12 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm install
       - name: run textlint
+        id: run-textlint
         run: |
-          ./node_modules/.bin/textlint 'docs/**/*.md' -f json -o textlint-report.json || true
-      - uses: yutailang0119/action-textlint@1.0.0
+          echo "::set-output name=TEXTLINT_OUTPUT::$(./node_modules/.bin/textlint 'docs/**/*.md' -f json || true)"
+      - uses: yutailang0119/action-textlint@v1
         with:
-          json_path: textlint-report.json
+          textlint_output: ${{ steps.run-textlint.outputs.TEXTLINT_OUTPUT }}
 ```
 
 ## Author
