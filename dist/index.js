@@ -186,7 +186,7 @@ function parseReport(json) {
                 const annotations = [];
                 for (const file of files) {
                     for (const message of file.messages) {
-                        const annotation = new Annotation_1.Annotation(message.severity, file.filePath, message.line, message.column, `${message.ruleId}: ${message.message}`);
+                        const annotation = new Annotation_1.Annotation(message.severity, file.filePath, message.line, message.column, `${message.message} (${message.ruleId})`);
                         annotations.push(annotation);
                     }
                 }
