@@ -4,7 +4,10 @@ author: 'Yutaro Muta'
 inputs:
   json_path:
     description: 'The file path of the JSON lint report'
-    required: true
+    required: false
+  textlint_output:
+    description: 'The json format output by textlint'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
