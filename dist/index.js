@@ -120,8 +120,15 @@ const command_1 = __webpack_require__(524);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const reportPath = core.getInput('json_path', { required: true });
-            const json = fs_1.default.readFileSync(reportPath, 'utf-8');
+            let json;
+            const textlintOutput = core.getInput('textlint_output', { required: false });
+            if (textlintOutput === '') {
+                const jsonPath = core.getInput('json_path', { required: false });
+                json = fs_1.default.readFileSync(jsonPath, 'utf-8');
+            }
+            else {
+                json = textlintOutput;
+            }
             const annotations = yield parser_1.parseReport(json);
             yield command_1.echoMessages(annotations);
         }
