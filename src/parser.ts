@@ -14,7 +14,7 @@ export async function parseReport(json: string): Promise<Annotation[]> {
             file.filePath,
             message.line,
             message.column,
-            `${message.ruleId}: ${message.message}`
+            `${message.message} (${message.ruleId})`
           )
           annotations.push(annotation)
         }

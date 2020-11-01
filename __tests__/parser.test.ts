@@ -50,21 +50,21 @@ test('test parse', () => {
     'Foo.md',
     3,
     6,
-    'sample-rule/no-weak-phrase: adverbs can weaken meaning'
+    'adverbs can weaken meaning (sample-rule/no-weak-phrase)'
   )
   const annotation2 = new Annotation(
     2,
     'Foo.md',
     22,
     7,
-    'sample-rule/misspellings: This is a commonly misspelled word. Correct it to useful'
+    'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)'
   )
   const annotation3 = new Annotation(
     2,
     'Bar.md',
     3,
     1,
-    'sample-rule/sentence:uppercase: sentence should start with an uppercase letter'
+    'sentence should start with an uppercase letter (sample-rule/sentence:uppercase)'
   )
 
   expect(parseReport(json)).resolves.toEqual([
