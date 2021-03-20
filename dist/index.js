@@ -46,15 +46,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.echoMessages = void 0;
 const command = __importStar(__nccwpck_require__(351));
@@ -65,12 +56,10 @@ const commandProperties = (annotation) => {
         col: `${annotation.column}`
     };
 };
-function echoMessages(annotations) {
-    return __awaiter(this, void 0, void 0, function* () {
-        for (const annotation of annotations) {
-            command.issueCommand(annotation.severityLevel, commandProperties(annotation), annotation.message);
-        }
-    });
+async function echoMessages(annotations) {
+    for (const annotation of annotations) {
+        command.issueCommand(annotation.severityLevel, commandProperties(annotation), annotation.message);
+    }
 }
 exports.echoMessages = echoMessages;
 
@@ -100,15 +89,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -117,25 +97,23 @@ const core = __importStar(__nccwpck_require__(186));
 const fs_1 = __importDefault(__nccwpck_require__(747));
 const parser_1 = __nccwpck_require__(267);
 const command_1 = __nccwpck_require__(524);
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let json;
-            const textlintOutput = core.getInput('textlint_output', { required: false });
-            if (textlintOutput === '') {
-                const jsonPath = core.getInput('json_path', { required: false });
-                json = fs_1.default.readFileSync(jsonPath, 'utf-8');
-            }
-            else {
-                json = textlintOutput;
-            }
-            const annotations = yield parser_1.parseReport(json);
-            yield command_1.echoMessages(annotations);
+async function run() {
+    try {
+        let json;
+        const textlintOutput = core.getInput('textlint_output', { required: false });
+        if (textlintOutput === '') {
+            const jsonPath = core.getInput('json_path', { required: false });
+            json = fs_1.default.readFileSync(jsonPath, 'utf-8');
         }
-        catch (error) {
-            core.setFailed(error.message);
+        else {
+            json = textlintOutput;
         }
-    });
+        const annotations = await parser_1.parseReport(json);
+        await command_1.echoMessages(annotations);
+    }
+    catch (error) {
+        core.setFailed(error.message);
+    }
 }
 run();
 
@@ -165,37 +143,26 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseReport = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const Annotation_1 = __nccwpck_require__(548);
-function parseReport(json) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const files = JSON.parse(json);
-        return new Promise(resolve => {
-            try {
-                const annotations = [];
-                for (const file of files) {
-                    for (const message of file.messages) {
-                        const annotation = new Annotation_1.Annotation(message.severity, file.filePath, message.line, message.column, `${message.message} (${message.ruleId})`);
-                        annotations.push(annotation);
-                    }
+async function parseReport(json) {
+    const files = JSON.parse(json);
+    return new Promise(resolve => {
+        try {
+            const annotations = [];
+            for (const file of files) {
+                for (const message of file.messages) {
+                    const annotation = new Annotation_1.Annotation(message.severity, file.filePath, message.line, message.column, `${message.message} (${message.ruleId})`);
+                    annotations.push(annotation);
                 }
-                resolve(annotations);
             }
-            catch (error) {
-                core.debug(`failed to read ${error}`);
-            }
-        });
+            resolve(annotations);
+        }
+        catch (error) {
+            core.debug(`failed to read ${error}`);
+        }
     });
 }
 exports.parseReport = parseReport;
