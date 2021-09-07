@@ -1,5 +1,5 @@
 import {parseReport} from '../src/parser'
-import {Annotation} from '../src/Annotation'
+import {Annotation} from '../src/annotation'
 
 test('test parse', () => {
   const json = `[

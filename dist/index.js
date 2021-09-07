@@ -2,7 +2,7 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 548:
+/***/ 316:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -145,7 +145,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseReport = void 0;
 const core = __importStar(__nccwpck_require__(186));
-const Annotation_1 = __nccwpck_require__(548);
+const annotation_1 = __nccwpck_require__(316);
 async function parseReport(json) {
     const files = JSON.parse(json);
     return new Promise(resolve => {
@@ -153,7 +153,7 @@ async function parseReport(json) {
             const annotations = [];
             for (const file of files) {
                 for (const message of file.messages) {
-                    const annotation = new Annotation_1.Annotation(message.severity, file.filePath, message.line, message.column, `${message.message} (${message.ruleId})`);
+                    const annotation = new annotation_1.Annotation(message.severity, file.filePath, message.line, message.column, `${message.message} (${message.ruleId})`);
                     annotations.push(annotation);
                 }
             }
