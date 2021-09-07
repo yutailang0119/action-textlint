@@ -1,7 +1,7 @@
 import fs from 'fs'
 import * as core from '@actions/core'
-import {parseReport} from './parser'
 import {echoMessages} from './command'
+import {parseReport} from './parser'
 
 async function run(): Promise<void> {
   try {
