@@ -94,8 +94,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs_1 = __importDefault(__nccwpck_require__(747));
 const core = __importStar(__nccwpck_require__(186));
-const parser_1 = __nccwpck_require__(267);
 const command_1 = __nccwpck_require__(524);
+const parser_1 = __nccwpck_require__(267);
 async function run() {
     try {
         let json;
