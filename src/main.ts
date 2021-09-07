@@ -1,5 +1,5 @@
-import * as core from '@actions/core'
 import fs from 'fs'
+import * as core from '@actions/core'
 import {parseReport} from './parser'
 import {echoMessages} from './command'
 

@@ -92,8 +92,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core = __importStar(__nccwpck_require__(186));
 const fs_1 = __importDefault(__nccwpck_require__(747));
+const core = __importStar(__nccwpck_require__(186));
 const parser_1 = __nccwpck_require__(267);
 const command_1 = __nccwpck_require__(524);
 async function run() {
