@@ -13,7 +13,7 @@ async function run(): Promise<void> {
     } else {
       json = textlintOutput
     }
-    const annotations = await parseReport(json)
+    const annotations = parseReport(json)
     echoMessages(annotations)
   } catch (error) {
     core.setFailed(error.message)
