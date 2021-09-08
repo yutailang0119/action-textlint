@@ -3,18 +3,16 @@ import {Annotation} from './annotation'
 
 export const parseReport = (json: string): Annotation[] => {
   const files: TextlintResult[] = JSON.parse(json)
-  const annotations: Annotation[] = []
-  for (const file of files) {
-    for (const message of file.messages) {
-      const annotation = new Annotation(
+  const annotations: Annotation[] = files.flatMap(file => {
+    return file.messages.map(message => {
+      return new Annotation(
         message.severity,
         `${message.message} (${message.ruleId})`,
         file.filePath,
         message.line,
         message.column
       )
-      annotations.push(annotation)
-    }
-  }
+    })
+  })
   return annotations
 }
