@@ -9,12 +9,12 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Annotation = void 0;
 class Annotation {
-    constructor(severity, path, line, column, message) {
-        this.severityLevel = severity === 2 ? 'error' : 'warning';
-        this.path = path;
+    constructor(severity, message, file, line, column) {
+        this.message = message;
+        this.file = file;
         this.line = line;
         this.column = column;
-        this.message = message;
+        this.severityLevel = severity === 2 ? 'error' : 'warning';
     }
 }
 exports.Annotation = Annotation;
@@ -50,16 +50,16 @@ exports.echoMessages = void 0;
 const command = __importStar(__nccwpck_require__(351));
 const commandProperties = (annotation) => {
     return {
-        file: annotation.path,
+        file: annotation.file,
         line: `${annotation.line}`,
         col: `${annotation.column}`
     };
 };
-async function echoMessages(annotations) {
+const echoMessages = (annotations) => {
     for (const annotation of annotations) {
         command.issueCommand(annotation.severityLevel, commandProperties(annotation), annotation.message);
     }
-}
+};
 exports.echoMessages = echoMessages;
 
 
@@ -108,7 +108,7 @@ async function run() {
             json = textlintOutput;
         }
         const annotations = await parser_1.parseReport(json);
-        await command_1.echoMessages(annotations);
+        command_1.echoMessages(annotations);
     }
     catch (error) {
         core.setFailed(error.message);
@@ -146,14 +146,14 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseReport = void 0;
 const core = __importStar(__nccwpck_require__(186));
 const annotation_1 = __nccwpck_require__(316);
-async function parseReport(json) {
+const parseReport = async (json) => {
     const files = JSON.parse(json);
     return new Promise(resolve => {
         try {
             const annotations = [];
             for (const file of files) {
                 for (const message of file.messages) {
-                    const annotation = new annotation_1.Annotation(message.severity, file.filePath, message.line, message.column, `${message.message} (${message.ruleId})`);
+                    const annotation = new annotation_1.Annotation(message.severity, `${message.message} (${message.ruleId})`, file.filePath, message.line, message.column);
                     annotations.push(annotation);
                 }
             }
@@ -163,7 +163,7 @@ async function parseReport(json) {
             core.debug(`failed to read ${error}`);
         }
     });
-}
+};
 exports.parseReport = parseReport;
 
 
@@ -644,21 +644,21 @@ exports.toCommandValue = toCommandValue;
 /***/ 747:
 /***/ ((module) => {
 
-module.exports = require("fs");;
+module.exports = require("fs");
 
 /***/ }),
 
 /***/ 87:
 /***/ ((module) => {
 
-module.exports = require("os");;
+module.exports = require("os");
 
 /***/ }),
 
 /***/ 622:
 /***/ ((module) => {
 
-module.exports = require("path");;
+module.exports = require("path");
 
 /***/ })
 
@@ -697,7 +697,9 @@ module.exports = require("path");;
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
-/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";/************************************************************************/
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
+/******/ 	
+/************************************************************************/
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
