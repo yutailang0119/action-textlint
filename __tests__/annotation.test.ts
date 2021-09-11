@@ -35,6 +35,12 @@ test('test Annotation.constructor with error', () => {
 })
 
 test('test Annotation.constructor with other', () => {
-  const annotation = new Annotation(0, '', 'Bar.md', 0, 0)
-  expect(annotation.severityLevel).toEqual('warning')
+  const annotation1 = new Annotation(NaN, '', 'Foo.md', 0, 0)
+  expect(annotation1.severityLevel).toEqual('warning')
+
+  const annotation2 = new Annotation(0, '', 'Bar.md', 0, 0)
+  expect(annotation2.severityLevel).toEqual('warning')
+
+  const annotation3 = new Annotation(3, '', 'Baz.md', 0, 0)
+  expect(annotation3.severityLevel).toEqual('warning')
 })
