@@ -1,6 +1,6 @@
 {
   "name": "action-textlint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Display textlint result on GitHub",
   "main": "lib/main.js",
