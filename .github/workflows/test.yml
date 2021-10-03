@@ -21,3 +21,4 @@ jobs:
       - uses: ./
         with:
           json_path: ${{ github.workspace }}/__tests__/resource/textlint-report.json
+        continue-on-error: true
