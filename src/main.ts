@@ -15,6 +15,13 @@ async function run(): Promise<void> {
     }
     const annotations = parseReport(json)
     echoMessages(annotations)
+
+    const errors = annotations.filter(annotation => {
+      return annotation.severityLevel === 'error'
+    })
+    if (errors.length) {
+      throw Error('There are errors via textlint')
+    }
   } catch (error) {
     core.setFailed(error.message)
   }
