@@ -30,6 +30,7 @@ jobs:
       - uses: yutailang0119/action-textlint@v1
         with:
           textlint_output: ${{ steps.run-textlint.outputs.TEXTLINT_OUTPUT }}
+        continue-on-error: true # If annotations contain error of severity, action-textlint exit 1.
 ```
 
 ## Author
