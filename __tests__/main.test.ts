@@ -17,9 +17,9 @@ test('test runs with json file', () => {
     const stdout = cp.execSync(`node ${ip}`, options)
     console.log(stdout)
     expect.assertions(1)
-  } catch (err) {
-    console.log('stdout: ', err.stdout.toString())
-    expect(err.status).toEqual(1)
+  } catch (error) {
+    console.log(error.stdout.toString())
+    expect(error.status).toEqual(1)
   }
 })
 
