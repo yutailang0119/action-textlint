@@ -13,7 +13,14 @@ test('test runs with json file', () => {
   const options: cp.ExecSyncOptions = {
     env: process.env
   }
-  console.log(cp.execSync(`node ${ip}`, options).toString())
+  try {
+    const stdout = cp.execSync(`node ${ip}`, options)
+    console.log(stdout)
+    expect.assertions(1)
+  } catch (error) {
+    console.log(error.stdout.toString())
+    expect(error.status).toEqual(1)
+  }
 })
 
 test('test runs with textlint output', () => {

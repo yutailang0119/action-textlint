@@ -109,6 +109,12 @@ async function run() {
         }
         const annotations = parser_1.parseReport(json);
         command_1.echoMessages(annotations);
+        const errors = annotations.filter(annotation => {
+            return annotation.severityLevel === 'error';
+        });
+        if (errors.length) {
+            throw Error('There are errors via textlint');
+        }
     }
     catch (error) {
         core.setFailed(error.message);
