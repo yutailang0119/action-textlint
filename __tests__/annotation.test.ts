@@ -12,9 +12,11 @@ test('test Annotation.constructor with warning', () => {
   expect(annotation.message).toEqual(
     'adverbs can weaken meaning (sample-rule/no-weak-phrase)'
   )
-  expect(annotation.file).toEqual('Foo.md')
-  expect(annotation.line).toEqual(3)
-  expect(annotation.column).toEqual(6)
+  expect(annotation.properties).toEqual({
+    file: 'Foo.md',
+    startLine: 3,
+    startColumn: 6
+  })
 })
 
 test('test Annotation.constructor with error', () => {
@@ -29,9 +31,11 @@ test('test Annotation.constructor with error', () => {
   expect(annotation.message).toEqual(
     'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)'
   )
-  expect(annotation.file).toEqual('Foo.md')
-  expect(annotation.line).toEqual(22)
-  expect(annotation.column).toEqual(7)
+  expect(annotation.properties).toEqual({
+    file: 'Foo.md',
+    startLine: 22,
+    startColumn: 7
+  })
 })
 
 test('test Annotation.constructor with other', () => {
