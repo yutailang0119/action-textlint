@@ -26,7 +26,8 @@ jobs:
       - name: run textlint
         id: run-textlint
         run: |
-          echo "::set-output name=TEXTLINT_OUTPUT::$(./node_modules/.bin/textlint 'docs/**/*.md' -f json || true)"
+          echo "::set-output name=TEXTLINT_OUTPUT::$(./node_modules/.bin/textlint 'docs/**/*.md' -f json)"
+        continue-on-error: true
       - uses: yutailang0119/action-textlint@v1
         with:
           textlint_output: ${{ steps.run-textlint.outputs.TEXTLINT_OUTPUT }}
