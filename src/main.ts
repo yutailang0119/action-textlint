@@ -20,7 +20,8 @@ async function run(): Promise<void> {
       return annotation.severityLevel === 'error'
     })
     if (errors.length) {
-      throw Error('There are errors via textlint')
+      const unit = errors.length === 1 ? 'error' : 'errors'
+      throw Error(`textlint with ${errors.length} ${unit}`)
     }
   } catch (error) {
     core.setFailed(error.message)
