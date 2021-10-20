@@ -109,8 +109,8 @@ async function run() {
         else {
             json = textlintOutput;
         }
-        const annotations = parser_1.parseReport(json);
-        command_1.echoMessages(annotations);
+        const annotations = (0, parser_1.parseReport)(json);
+        (0, command_1.echoMessages)(annotations);
         const errors = annotations.filter(annotation => {
             return annotation.severityLevel === 'error';
         });
@@ -120,7 +120,8 @@ async function run() {
         }
     }
     catch (error) {
-        core.setFailed(error.message);
+        if (error instanceof Error)
+            core.setFailed(error.message);
     }
 }
 run();
