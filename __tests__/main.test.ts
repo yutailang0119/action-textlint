@@ -10,12 +10,13 @@ test('test runs with json file', () => {
     'resource',
     'textlint-report.json'
   )
+  const np = process.execPath
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecSyncOptions = {
+  const options: cp.ExecFileSyncOptions = {
     env: process.env
   }
   try {
-    const stdout = cp.execSync(`node ${ip}`, options)
+    const stdout = cp.execFileSync(np, [ip], options)
     console.log(stdout)
     expect.assertions(1)
   } catch (error: any) {
@@ -42,9 +43,10 @@ test('test runs with textlint output', () => {
     }
   ]`
   process.env['INPUT_TEXTLINT_OUTPUT'] = json
+  const np = process.execPath
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecSyncOptions = {
+  const options: cp.ExecFileSyncOptions = {
     env: process.env
   }
-  console.log(cp.execSync(`node ${ip}`, options).toString())
+  console.log(cp.execFileSync(np, [ip], options).toString())
 })
