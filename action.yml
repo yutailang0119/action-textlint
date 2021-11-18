@@ -2,10 +2,10 @@ name: 'GitHub Action for textlint'
 description: 'Display textlint result on GitHub'
 author: 'Yutaro Muta'
 inputs:
-  json_path:
+  json-path:
     description: 'The file path of the JSON lint report'
     required: false
-  textlint_output:
+  textlint-output:
     description: 'The json format output by textlint'
     required: false
 runs:

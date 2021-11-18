@@ -101,9 +101,9 @@ const parser_1 = __nccwpck_require__(267);
 async function run() {
     try {
         let json;
-        const textlintOutput = core.getInput('textlint_output', { required: false });
+        const textlintOutput = core.getInput('textlint-output', { required: false });
         if (textlintOutput === '') {
-            const jsonPath = core.getInput('json_path', { required: false });
+            const jsonPath = core.getInput('json-path', { required: false });
             json = fs_1.default.readFileSync(jsonPath, 'utf-8');
         }
         else {
