@@ -8,8 +8,8 @@ async function run(): Promise<void> {
     let json: string
     const textlintOutput = core.getInput('textlint-output', {required: false})
     if (textlintOutput === '') {
-      const jsonPath = core.getInput('json-path', {required: false})
-      json = fs.readFileSync(jsonPath, 'utf-8')
+      const reportPath = core.getInput('report-path', {required: false})
+      json = fs.readFileSync(reportPath, 'utf-8')
     } else {
       json = textlintOutput
     }

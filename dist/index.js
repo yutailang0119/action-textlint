@@ -103,8 +103,8 @@ async function run() {
         let json;
         const textlintOutput = core.getInput('textlint-output', { required: false });
         if (textlintOutput === '') {
-            const jsonPath = core.getInput('json-path', { required: false });
-            json = fs_1.default.readFileSync(jsonPath, 'utf-8');
+            const reportPath = core.getInput('report-path', { required: false });
+            json = fs_1.default.readFileSync(reportPath, 'utf-8');
         }
         else {
             json = textlintOutput;

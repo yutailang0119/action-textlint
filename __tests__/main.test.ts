@@ -5,7 +5,7 @@ import {expect, test} from '@jest/globals'
 
 // shows how the runner will run a javascript action with env / stdout protocol
 test('test runs with json file', () => {
-  process.env['INPUT_JSON-PATH'] = path.join(
+  process.env['INPUT_REPORT-PATH'] = path.join(
     __dirname,
     'resource',
     'textlint-report.json'
