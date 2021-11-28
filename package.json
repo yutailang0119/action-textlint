@@ -1,8 +1,8 @@
 {
   "name": "action-textlint",
   "version": "2.0.0",
-  "private": true,
-  "description": "Display textlint result on GitHub",
+  "private": false,
+  "description": "GitHub Actions for textlint",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -19,10 +19,10 @@
   },
   "keywords": [
     "actions",
-    "node",
-    "textlint"
+    "textlint",
+    "lint"
   ],
-  "author": "Yutaro Muta",
+  "author": "yutailang0119",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.6.0",
