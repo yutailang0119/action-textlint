@@ -27,7 +27,7 @@ jobs:
         id: run-textlint
         run: |
           echo "::set-output name=TEXTLINT_OUTPUT::$(./node_modules/.bin/textlint 'docs/**/*.md' -f json)"
-      - uses: yutailang0119/action-textlint@v2
+      - uses: yutailang0119/action-textlint@v3
         with:
           textlint-output: ${{ steps.run-textlint.outputs.TEXTLINT_OUTPUT }}
         continue-on-error: false # If annotations contain error of severity, action-textlint exit 1.
