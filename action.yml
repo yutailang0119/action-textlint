@@ -1,6 +1,6 @@
 name: 'GitHub Action for textlint'
 description: 'Display textlint result on GitHub'
-author: 'Yutaro Muta'
+author: 'yutailang0119'
 inputs:
   report-path:
     description: 'The lint report file path.'
