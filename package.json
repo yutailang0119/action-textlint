@@ -25,13 +25,13 @@
   "author": "yutailang0119",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.8.2",
+    "@actions/core": "^1.9.0",
     "@textlint/types": "^12.1.1"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
-    "@typescript-eslint/parser": "^5.22.0",
+    "@typescript-eslint/parser": "^5.28.0",
     "@vercel/ncc": "^0.33.3",
     "eslint": "^8.17.0",
     "eslint-plugin-github": "^4.3.6",
