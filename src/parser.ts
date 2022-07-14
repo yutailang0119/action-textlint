@@ -2,13 +2,13 @@ import {TextlintResult} from '@textlint/types/src/Message/TextlintResult'
 import {Annotation} from './annotation'
 
 export const parseReport = (json: string): Annotation[] => {
-  const files: TextlintResult[] = JSON.parse(json)
-  const annotations: Annotation[] = files.flatMap(file => {
-    return file.messages.map(message => {
+  const results: TextlintResult[] = JSON.parse(json)
+  const annotations: Annotation[] = results.flatMap(result => {
+    return result.messages.map(message => {
       return new Annotation(
         message.severity,
         `${message.message} (${message.ruleId})`,
-        file.filePath,
+        result.filePath,
         message.line,
         message.column
       )
