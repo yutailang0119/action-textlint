@@ -146,10 +146,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseReport = void 0;
 const annotation_1 = __nccwpck_require__(316);
 const parseReport = (json) => {
-    const files = JSON.parse(json);
-    const annotations = files.flatMap(file => {
-        return file.messages.map(message => {
-            return new annotation_1.Annotation(message.severity, `${message.message} (${message.ruleId})`, file.filePath, message.line, message.column);
+    const results = JSON.parse(json);
+    const annotations = results.flatMap(result => {
+        return result.messages.map(message => {
+            return new annotation_1.Annotation(message.severity, `${message.message} (${message.ruleId})`, result.filePath, message.line, message.column);
         });
     });
     return annotations;
