@@ -26,7 +26,7 @@ jobs:
       - name: run textlint
         id: run-textlint
         run: |
-          echo "::set-output name=TEXTLINT_OUTPUT::$(./node_modules/.bin/textlint 'docs/**/*.md' -f json)"
+          echo "TEXTLINT_OUTPUT=$(./node_modules/.bin/textlint 'docs/**/*.md' -f json)" >> $GITHUB_OUTPUT
       - uses: yutailang0119/action-textlint@v3
         with:
           textlint-output: ${{ steps.run-textlint.outputs.TEXTLINT_OUTPUT }}
