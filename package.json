@@ -26,7 +26,7 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@textlint/types": "^12.5.0"
+    "@textlint/types": "^13.1.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
