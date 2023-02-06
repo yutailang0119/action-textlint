@@ -29,7 +29,7 @@
     "@textlint/types": "^12.5.0"
   },
   "devDependencies": {
-    "@types/node": "^18.11.18",
+    "@types/node": "^18.11.19",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "@vercel/ncc": "^0.36.0",
