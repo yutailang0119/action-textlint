@@ -12,6 +12,20 @@ const json = `[
         "index":12,
         "line":3,
         "column":6,
+        "range":[
+          12,
+          13
+        ],
+        "loc":{
+          "start":{
+            "line":3,
+            "column":6
+          },
+          "end":{
+            "line":3,
+            "column":7
+          }
+        },
         "severity":1
       },
       {
@@ -21,6 +35,20 @@ const json = `[
         "index":13,
         "line":22,
         "column":7,
+        "range":[
+          13,
+          14
+        ],
+        "loc":{
+          "start":{
+            "line":22,
+            "column":7
+          },
+          "end":{
+            "line":22,
+            "column":8
+          }
+        },
         "severity":2
       }
     ],
@@ -35,6 +63,20 @@ const json = `[
         "index":7,
         "line":3,
         "column":1,
+        "range":[
+          7,
+          8
+        ],
+        "loc":{
+          "start":{
+            "line":3,
+            "column":1
+          },
+          "end":{
+            "line":3,
+            "column":2
+          }
+        },
         "severity":2,
         "fix":{
           "range":[1,4],

@@ -37,6 +37,20 @@ test('test runs with textlint output', () => {
           "index":12,
           "line":3,
           "column":6,
+          "range":[
+            12,
+            13
+          ],
+          "loc":{
+            "start":{
+              "line":3,
+              "column":6
+            },
+            "end":{
+              "line":3,
+              "column":7
+            }
+          },
           "severity":1
         }
       ],
