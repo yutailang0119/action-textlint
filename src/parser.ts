@@ -12,8 +12,8 @@ export const parseReport = (
         message.severity,
         `${message.message} (${message.ruleId})`,
         result.filePath,
-        message.line,
-        message.column
+        message.loc.start.line,
+        message.loc.start.column
       )
     })
   })
