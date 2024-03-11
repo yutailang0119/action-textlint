@@ -68,5 +68,5 @@ test('test parse', () => {
     1
   )
 
-  expect(parseReport(json)).toEqual([annotation1, annotation2, annotation3])
+  expect(parseReport(json, false)).toEqual([annotation1, annotation2, annotation3])
 })
