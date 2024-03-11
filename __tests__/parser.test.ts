@@ -75,3 +75,22 @@ test('test parse', () => {
     annotation3
   ])
 })
+
+test('test parse and ignore warnings', () => {
+  const annotation2 = new Annotation(
+    2,
+    'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)',
+    'Foo.md',
+    22,
+    7
+  )
+  const annotation3 = new Annotation(
+    2,
+    'sentence should start with an uppercase letter (sample-rule/sentence:uppercase)',
+    'Bar.md',
+    3,
+    1
+  )
+
+  expect(parseReport(json, true)).toEqual([annotation2, annotation3])
+})
