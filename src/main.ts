@@ -13,7 +13,9 @@ async function run(): Promise<void> {
     } else {
       json = textlintOutput
     }
-    const annotations = parseReport(json, false)
+    const ignoreWarnings = core.getBooleanInput('ignore-warnings')
+
+    const annotations = parseReport(json, ignoreWarnings)
     echoMessages(annotations)
 
     const errors = annotations.filter(annotation => {
