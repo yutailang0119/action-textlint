@@ -117,7 +117,8 @@ async function run() {
         else {
             json = textlintOutput;
         }
-        const annotations = (0, parser_1.parseReport)(json);
+        const ignoreWarnings = core.getBooleanInput('ignore-warnings');
+        const annotations = (0, parser_1.parseReport)(json, ignoreWarnings);
         (0, command_1.echoMessages)(annotations);
         const errors = annotations.filter(annotation => {
             return annotation.severityLevel === 'error';
@@ -145,14 +146,21 @@ run();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parseReport = void 0;
 const annotation_1 = __nccwpck_require__(316);
-const parseReport = (json) => {
+const parseReport = (json, ignoreWarnings) => {
     const results = JSON.parse(json);
     const annotations = results.flatMap(result => {
         return result.messages.map(message => {
             return new annotation_1.Annotation(message.severity, `${message.message} (${message.ruleId})`, result.filePath, message.line, message.column);
         });
     });
-    return annotations;
+    if (ignoreWarnings === true) {
+        return annotations.filter(annotation => {
+            return annotation.severityLevel !== 'warning';
+        });
+    }
+    else {
+        return annotations;
+    }
 };
 exports.parseReport = parseReport;
 
@@ -1884,6 +1892,10 @@ function checkBypass(reqUrl) {
     if (!reqUrl.hostname) {
         return false;
     }
+    const reqHost = reqUrl.hostname;
+    if (isLoopbackAddress(reqHost)) {
+        return true;
+    }
     const noProxy = process.env['no_proxy'] || process.env['NO_PROXY'] || '';
     if (!noProxy) {
         return false;
@@ -1909,13 +1921,24 @@ function checkBypass(reqUrl) {
         .split(',')
         .map(x => x.trim().toUpperCase())
         .filter(x => x)) {
-        if (upperReqHosts.some(x => x === upperNoProxyItem)) {
+        if (upperNoProxyItem === '*' ||
+            upperReqHosts.some(x => x === upperNoProxyItem ||
+                x.endsWith(`.${upperNoProxyItem}`) ||
+                (upperNoProxyItem.startsWith('.') &&
+                    x.endsWith(`${upperNoProxyItem}`)))) {
             return true;
         }
     }
     return false;
 }
 exports.checkBypass = checkBypass;
+function isLoopbackAddress(host) {
+    const hostLower = host.toLowerCase();
+    return (hostLower === 'localhost' ||
+        hostLower.startsWith('127.') ||
+        hostLower.startsWith('[::1]') ||
+        hostLower.startsWith('[0:0:0:0:0:0:0:1]'));
+}
 //# sourceMappingURL=proxy.js.map
 
 /***/ }),

@@ -30,6 +30,7 @@ jobs:
       - uses: yutailang0119/action-textlint@v3
         with:
           textlint-output: ${{ steps.run-textlint.outputs.TEXTLINT_OUTPUT }}
+          ignore-warnings: true # Ignore Lint Warnings
         continue-on-error: false # If annotations contain error of severity, action-textlint exit 1.
 ```
 

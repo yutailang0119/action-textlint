@@ -10,6 +10,7 @@ test('test runs with json file', () => {
     'resource',
     'textlint-report.json'
   )
+  process.env['INPUT_IGNORE-WARNINGS'] = 'false'
   const np = process.execPath
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
   const options: cp.ExecFileSyncOptions = {
@@ -43,6 +44,7 @@ test('test runs with textlint output', () => {
     }
   ]`
   process.env['INPUT_TEXTLINT-OUTPUT'] = json
+  process.env['INPUT_IGNORE-WARNINGS'] = 'false'
   const np = process.execPath
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
   const options: cp.ExecFileSyncOptions = {
