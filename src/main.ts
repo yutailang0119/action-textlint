@@ -13,7 +13,7 @@ async function run(): Promise<void> {
     } else {
       json = textlintOutput
     }
-    const annotations = parseReport(json)
+    const annotations = parseReport(json, false)
     echoMessages(annotations)
 
     const errors = annotations.filter(annotation => {
