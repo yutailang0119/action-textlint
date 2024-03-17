@@ -93,22 +93,46 @@ test('test parse', () => {
     1,
     'adverbs can weaken meaning (sample-rule/no-weak-phrase)',
     'Foo.md',
-    3,
-    6
+    {
+      start: {
+        line: 3,
+        column: 6
+      },
+      end: {
+        line: 3,
+        column: 7
+      }
+    }
   )
   const annotation2 = new Annotation(
     2,
     'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)',
     'Foo.md',
-    22,
-    7
+    {
+      start: {
+        line: 22,
+        column: 7
+      },
+      end: {
+        line: 22,
+        column: 8
+      }
+    }
   )
   const annotation3 = new Annotation(
     2,
     'sentence should start with an uppercase letter (sample-rule/sentence:uppercase)',
     'Bar.md',
-    3,
-    1
+    {
+      start: {
+        line: 3,
+        column: 1
+      },
+      end: {
+        line: 3,
+        column: 2
+      }
+    }
   )
 
   expect(parseReport(json, false)).toEqual([
@@ -123,15 +147,31 @@ test('test parse and ignore warnings', () => {
     2,
     'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)',
     'Foo.md',
-    22,
-    7
+    {
+      start: {
+        line: 22,
+        column: 7
+      },
+      end: {
+        line: 22,
+        column: 8
+      }
+    }
   )
   const annotation3 = new Annotation(
     2,
     'sentence should start with an uppercase letter (sample-rule/sentence:uppercase)',
     'Bar.md',
-    3,
-    1
+    {
+      start: {
+        line: 3,
+        column: 1
+      },
+      end: {
+        line: 3,
+        column: 2
+      }
+    }
   )
 
   expect(parseReport(json, true)).toEqual([annotation2, annotation3])
