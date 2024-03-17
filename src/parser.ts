@@ -12,8 +12,16 @@ export const parseReport = (
         message.severity,
         `${message.message} (${message.ruleId})`,
         result.filePath,
-        message.loc.start.line,
-        message.loc.start.column
+        {
+          start: {
+            line: message.loc.start.line,
+            column: message.loc.start.column
+          },
+          end: {
+            line: message.loc.end.line,
+            column: message.loc.end.column
+          }
+        }
       )
     })
   })
