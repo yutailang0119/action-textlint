@@ -10,15 +10,25 @@ export class Annotation {
     severity: number,
     message: string,
     file: string,
-    line: number,
-    column: number
+    loc: {
+      start: {
+        line: number
+        column: number
+      }
+      end: {
+        line: number
+        column: number
+      }
+    }
   ) {
     this.severityLevel = severity === 2 ? 'error' : 'warning'
     this.message = message
     this.properties = {
       file,
-      startLine: line,
-      startColumn: column
+      startLine: loc.start.line,
+      endLine: loc.end.line,
+      startColumn: loc.start.column,
+      endColumn: loc.end.column
     }
   }
 }
