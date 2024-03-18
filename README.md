@@ -2,7 +2,8 @@
 
 # GitHub Action for textlint
 
-This Action generates annotations from [textlint](https://textlint.github.io) Report JSON.
+This Action generates annotations from [textlint](https://textlint.github.io) Report JSON.  
+Support textlint to [v12.2.0](https://github.com/textlint/textlint/releases/tag/v12.2.0) and later.  
 
 ## Usage
 
