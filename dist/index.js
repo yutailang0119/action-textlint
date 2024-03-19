@@ -9,13 +9,15 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Annotation = void 0;
 class Annotation {
-    constructor(severity, message, file, line, column) {
+    constructor(severity, message, file, loc) {
         this.severityLevel = severity === 2 ? 'error' : 'warning';
         this.message = message;
         this.properties = {
             file,
-            startLine: line,
-            startColumn: column
+            startLine: loc.start.line,
+            endLine: loc.end.line,
+            startColumn: loc.start.column,
+            endColumn: loc.end.column
         };
     }
 }
@@ -150,7 +152,16 @@ const parseReport = (json, ignoreWarnings) => {
     const results = JSON.parse(json);
     const annotations = results.flatMap(result => {
         return result.messages.map(message => {
-            return new annotation_1.Annotation(message.severity, `${message.message} (${message.ruleId})`, result.filePath, message.line, message.column);
+            return new annotation_1.Annotation(message.severity, `${message.message} (${message.ruleId})`, result.filePath, {
+                start: {
+                    line: message.loc.start.line,
+                    column: message.loc.start.column
+                },
+                end: {
+                    line: message.loc.end.line,
+                    column: message.loc.end.column
+                }
+            });
         });
     });
     if (ignoreWarnings === true) {
