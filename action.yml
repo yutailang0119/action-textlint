@@ -10,10 +10,10 @@ inputs:
     required: false
   ignore-warnings:
     description: 'Ignore Lint Warnings'
-    default: false
+    default: fal'se
 runs:
   using: 'node20'
   main: 'dist/index.js'
 branding:
   icon: 'check-square'
-  color: 'black'
+  color: 'white'
