@@ -22,13 +22,13 @@ jobs:
   textlint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: npm install
       - name: run textlint
         id: run-textlint
         run: |
           echo "TEXTLINT_OUTPUT=$(./node_modules/.bin/textlint 'docs/**/*.md' -f json || true)" >> $GITHUB_OUTPUT
-      - uses: yutailang0119/action-textlint@v3
+      - uses: yutailang0119/action-textlint@v4
         with:
           textlint-output: ${{ steps.run-textlint.outputs.TEXTLINT_OUTPUT }}
           ignore-warnings: true # Ignore Lint Warnings
