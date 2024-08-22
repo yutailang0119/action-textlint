@@ -27,10 +27,10 @@ jobs:
       - name: run textlint
         id: run-textlint
         run: |
-          echo "TEXTLINT_OUTPUT=$(./node_modules/.bin/textlint 'docs/**/*.md' -f json || true)" >> $GITHUB_OUTPUT
+          echo "textlint-output=$(./node_modules/.bin/textlint 'docs/**/*.md' -f json || true)" >> "$GITHUB_OUTPUT"
       - uses: yutailang0119/action-textlint@v4
         with:
-          textlint-output: ${{ steps.run-textlint.outputs.TEXTLINT_OUTPUT }}
+          textlint-output: ${{ steps.run-textlint.outputs.textlint-output }}
           ignore-warnings: true # Ignore Lint Warnings
         continue-on-error: false # If annotations contain error of severity, action-textlint exit 1.
 ```
