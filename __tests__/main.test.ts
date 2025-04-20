@@ -1,62 +1,68 @@
-/**
- * Unit tests for the action's main functionality, src/main.ts
- *
- * To mock dependencies in ESM, you can create fixtures that export mock
- * functions and objects. For example, the core module is mocked in this test,
- * so that the actual '@actions/core' module is not imported.
- */
-import { jest } from '@jest/globals'
-import * as core from '../__fixtures__/core.js'
-import { wait } from '../__fixtures__/wait.js'
+import * as process from 'process'
+import * as cp from 'child_process'
+import * as path from 'path'
+import {expect, test} from '@jest/globals'
 
-// Mocks should be declared before the module being tested is imported.
-jest.unstable_mockModule('@actions/core', () => core)
-jest.unstable_mockModule('../src/wait.js', () => ({ wait }))
+// shows how the runner will run a javascript action with env / stdout protocol
+test('test runs with json file', () => {
+  process.env['INPUT_REPORT-PATH'] = path.join(
+    __dirname,
+    'resource',
+    'textlint-report.json'
+  )
+  process.env['INPUT_IGNORE-WARNINGS'] = 'false'
+  const np = process.execPath
+  const ip = path.join(__dirname, '..', 'lib', 'main.js')
+  const options: cp.ExecFileSyncOptions = {
+    env: process.env
+  }
+  try {
+    const stdout = cp.execFileSync(np, [ip], options)
+    console.log(stdout.toString())
+    expect.assertions(1)
+  } catch (error: any) {
+    console.log(error.stdout.toString())
+    expect(error.status).toEqual(1)
+  }
+})
 
-// The module being tested should be imported dynamically. This ensures that the
-// mocks are used in place of any actual dependencies.
-const { run } = await import('../src/main.js')
-
-describe('main.ts', () => {
-  beforeEach(() => {
-    // Set the action's inputs as return values from core.getInput().
-    core.getInput.mockImplementation(() => '500')
-
-    // Mock the wait function so that it does not actually wait.
-    wait.mockImplementation(() => Promise.resolve('done!'))
-  })
-
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
-  it('Sets the time output', async () => {
-    await run()
-
-    // Verify the time output was set.
-    expect(core.setOutput).toHaveBeenNthCalledWith(
-      1,
-      'time',
-      // Simple regex to match a time string in the format HH:MM:SS.
-      expect.stringMatching(/^\d{2}:\d{2}:\d{2}/)
-    )
-  })
-
-  it('Sets a failed status', async () => {
-    // Clear the getInput mock and return an invalid value.
-    core.getInput.mockClear().mockReturnValueOnce('this is not a number')
-
-    // Clear the wait mock and return a rejected promise.
-    wait
-      .mockClear()
-      .mockRejectedValueOnce(new Error('milliseconds is not a number'))
-
-    await run()
-
-    // Verify that the action was marked as failed.
-    expect(core.setFailed).toHaveBeenNthCalledWith(
-      1,
-      'milliseconds is not a number'
-    )
-  })
+test('test runs with textlint output', () => {
+  const json = `[
+    {
+      "messages":[
+        {
+          "type":"lint",
+          "ruleId":"sample-rule/no-weak-phrase",
+          "message":"adverbs can weaken meaning",
+          "index":12,
+          "line":3,
+          "column":6,
+          "range":[
+            12,
+            13
+          ],
+          "loc":{
+            "start":{
+              "line":3,
+              "column":6
+            },
+            "end":{
+              "line":3,
+              "column":7
+            }
+          },
+          "severity":1
+        }
+      ],
+      "filePath":"Foo.md"
+    }
+  ]`
+  process.env['INPUT_TEXTLINT-OUTPUT'] = json
+  process.env['INPUT_IGNORE-WARNINGS'] = 'false'
+  const np = process.execPath
+  const ip = path.join(__dirname, '..', 'lib', 'main.js')
+  const options: cp.ExecFileSyncOptions = {
+    env: process.env
+  }
+  console.log(cp.execFileSync(np, [ip], options).toString())
 })
