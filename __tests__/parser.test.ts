@@ -1,6 +1,6 @@
 import {expect, test} from '@jest/globals'
-import {Annotation} from '../src/annotation'
-import {parseReport} from '../src/parser'
+import {Annotation} from '../src/annotation.js'
+import {parseReport} from '../src/parser.js'
 
 const json = `[
   {
