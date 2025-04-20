@@ -1,9 +1,9 @@
 import fs from 'fs'
 import * as core from '@actions/core'
-import {echoMessages} from './command'
-import {parseReport} from './parser'
+import {echoMessages} from './command.js'
+import {parseReport} from './parser.js'
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   try {
     let json: string
     const textlintOutput = core.getInput('textlint-output', {required: false})

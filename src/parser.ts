@@ -1,5 +1,5 @@
-import {TextlintResult} from '@textlint/types/src/Message/TextlintResult'
-import {Annotation} from './annotation'
+import {TextlintResult} from '@textlint/types/src/Message/TextlintResult.js'
+import {Annotation} from './annotation.js'
 
 export const parseReport = (
   json: string,
