@@ -1,6 +1,6 @@
-<a href="https://github.com/yutailang0119/action-textlint/actions"><img alt="action-textlint status" src="https://github.com/yutailang0119/action-textlint/workflows/build-test/badge.svg"></a>
-
 # GitHub Action for textlint
+
+<a href="https://github.com/yutailang0119/action-textlint/actions"><img alt="action-textlint status" src="https://github.com/yutailang0119/action-textlint/workflows/build-test/badge.svg"></a>
 
 This Action generates annotations from [textlint](https://textlint.github.io)
 Report JSON.  
