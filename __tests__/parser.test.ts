@@ -1,4 +1,4 @@
-import {expect, test} from '@jest/globals'
+import {expect} from '@jest/globals'
 import {Annotation} from '../src/annotation.js'
 import {parseReport} from '../src/parser.js'
 
@@ -88,91 +88,93 @@ const json = `[
   }
 ]`
 
-test('test parse', () => {
-  const annotation1 = new Annotation(
-    1,
-    'adverbs can weaken meaning (sample-rule/no-weak-phrase)',
-    'Foo.md',
-    {
-      start: {
-        line: 3,
-        column: 6
-      },
-      end: {
-        line: 3,
-        column: 7
+describe('parser.ts', () => {
+  it('test parse', () => {
+    const annotation1 = new Annotation(
+      1,
+      'adverbs can weaken meaning (sample-rule/no-weak-phrase)',
+      'Foo.md',
+      {
+        start: {
+          line: 3,
+          column: 6
+        },
+        end: {
+          line: 3,
+          column: 7
+        }
       }
-    }
-  )
-  const annotation2 = new Annotation(
-    2,
-    'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)',
-    'Foo.md',
-    {
-      start: {
-        line: 22,
-        column: 7
-      },
-      end: {
-        line: 22,
-        column: 8
+    )
+    const annotation2 = new Annotation(
+      2,
+      'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)',
+      'Foo.md',
+      {
+        start: {
+          line: 22,
+          column: 7
+        },
+        end: {
+          line: 22,
+          column: 8
+        }
       }
-    }
-  )
-  const annotation3 = new Annotation(
-    2,
-    'sentence should start with an uppercase letter (sample-rule/sentence:uppercase)',
-    'Bar.md',
-    {
-      start: {
-        line: 3,
-        column: 1
-      },
-      end: {
-        line: 3,
-        column: 2
+    )
+    const annotation3 = new Annotation(
+      2,
+      'sentence should start with an uppercase letter (sample-rule/sentence:uppercase)',
+      'Bar.md',
+      {
+        start: {
+          line: 3,
+          column: 1
+        },
+        end: {
+          line: 3,
+          column: 2
+        }
       }
-    }
-  )
+    )
+  
+    expect(parseReport(json, false)).toEqual([
+      annotation1,
+      annotation2,
+      annotation3
+    ])
+  })
 
-  expect(parseReport(json, false)).toEqual([
-    annotation1,
-    annotation2,
-    annotation3
-  ])
-})
-
-test('test parse and ignore warnings', () => {
-  const annotation2 = new Annotation(
-    2,
-    'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)',
-    'Foo.md',
-    {
-      start: {
-        line: 22,
-        column: 7
-      },
-      end: {
-        line: 22,
-        column: 8
+  it('test parse and ignore warnings', () => {
+    const annotation2 = new Annotation(
+      2,
+      'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)',
+      'Foo.md',
+      {
+        start: {
+          line: 22,
+          column: 7
+        },
+        end: {
+          line: 22,
+          column: 8
+        }
       }
-    }
-  )
-  const annotation3 = new Annotation(
-    2,
-    'sentence should start with an uppercase letter (sample-rule/sentence:uppercase)',
-    'Bar.md',
-    {
-      start: {
-        line: 3,
-        column: 1
-      },
-      end: {
-        line: 3,
-        column: 2
+    )
+    const annotation3 = new Annotation(
+      2,
+      'sentence should start with an uppercase letter (sample-rule/sentence:uppercase)',
+      'Bar.md',
+      {
+        start: {
+          line: 3,
+          column: 1
+        },
+        end: {
+          line: 3,
+          column: 2
+        }
       }
-    }
-  )
-
-  expect(parseReport(json, true)).toEqual([annotation2, annotation3])
+    )
+  
+    expect(parseReport(json, true)).toEqual([annotation2, annotation3])
+  })  
 })
