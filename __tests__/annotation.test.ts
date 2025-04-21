@@ -1,5 +1,5 @@
-import {expect} from '@jest/globals'
-import {Annotation} from '../src/annotation.js'
+import { expect } from '@jest/globals'
+import { Annotation } from '../src/annotation.js'
 
 describe('annotation.ts', () => {
   it('test Annotation.constructor with warning', () => {
@@ -59,23 +59,23 @@ describe('annotation.ts', () => {
       endColumn: 8
     })
   })
-  
+
   it('test Annotation.constructor with other', () => {
     const annotation1 = new Annotation(NaN, '', 'Foo.md', {
-      start: {line: 0, column: 0},
-      end: {line: 0, column: 1}
+      start: { line: 0, column: 0 },
+      end: { line: 0, column: 1 }
     })
     expect(annotation1.severityLevel).toEqual('warning')
-  
+
     const annotation2 = new Annotation(0, '', 'Bar.md', {
-      start: {line: 0, column: 0},
-      end: {line: 0, column: 1}
+      start: { line: 0, column: 0 },
+      end: { line: 0, column: 1 }
     })
     expect(annotation2.severityLevel).toEqual('warning')
-  
+
     const annotation3 = new Annotation(3, '', 'Baz.md', {
-      start: {line: 0, column: 0},
-      end: {line: 0, column: 1}
+      start: { line: 0, column: 0 },
+      end: { line: 0, column: 1 }
     })
     expect(annotation3.severityLevel).toEqual('warning')
   })

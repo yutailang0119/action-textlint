@@ -2,12 +2,15 @@
 
 # GitHub Action for textlint
 
-This Action generates annotations from [textlint](https://textlint.github.io) Report JSON.  
-Support textlint to [v12.2.0](https://github.com/textlint/textlint/releases/tag/v12.2.0) or later.  
+This Action generates annotations from [textlint](https://textlint.github.io)
+Report JSON.  
+Support textlint to
+[v12.2.0](https://github.com/textlint/textlint/releases/tag/v12.2.0) or later.
 
 ## Usage
 
-An example workflow(.github/workflows/textlint.yml) to executing textlint follows:
+An example workflow(.github/workflows/textlint.yml) to executing textlint
+follows:
 
 ```yml
 name: textlint
@@ -43,8 +46,11 @@ jobs:
 
 ## References
 
-- Generated from [actions/typescript-action](https://github.com/actions/typescript-action) as template.
+- Generated from
+  [actions/typescript-action](https://github.com/actions/typescript-action) as
+  template.
 
 ## License
 
-action-textlint is available under the MIT license. See [the LICENSE file](./LICENSE) for more info.
+action-textlint is available under the MIT license. See
+[the LICENSE file](./LICENSE) for more info.

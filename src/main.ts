@@ -1,14 +1,14 @@
 import fs from 'fs'
 import * as core from '@actions/core'
-import {echoMessages} from './command.js'
-import {parseReport} from './parser.js'
+import { echoMessages } from './command.js'
+import { parseReport } from './parser.js'
 
 export async function run(): Promise<void> {
   try {
     let json: string
-    const textlintOutput = core.getInput('textlint-output', {required: false})
+    const textlintOutput = core.getInput('textlint-output', { required: false })
     if (textlintOutput === '') {
-      const reportPath = core.getInput('report-path', {required: false})
+      const reportPath = core.getInput('report-path', { required: false })
       json = fs.readFileSync(reportPath, 'utf-8')
     } else {
       json = textlintOutput
@@ -18,7 +18,7 @@ export async function run(): Promise<void> {
     const annotations = parseReport(json, ignoreWarnings)
     echoMessages(annotations)
 
-    const errors = annotations.filter(annotation => {
+    const errors = annotations.filter((annotation) => {
       return annotation.severityLevel === 'error'
     })
     if (errors.length) {

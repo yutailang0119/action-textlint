@@ -1,6 +1,6 @@
-import {expect} from '@jest/globals'
-import {Annotation} from '../src/annotation.js'
-import {parseReport} from '../src/parser.js'
+import { expect } from '@jest/globals'
+import { Annotation } from '../src/annotation.js'
+import { parseReport } from '../src/parser.js'
 
 const json = `[
   {
@@ -135,7 +135,7 @@ describe('parser.ts', () => {
         }
       }
     )
-  
+
     expect(parseReport(json, false)).toEqual([
       annotation1,
       annotation2,
@@ -174,7 +174,7 @@ describe('parser.ts', () => {
         }
       }
     )
-  
+
     expect(parseReport(json, true)).toEqual([annotation2, annotation3])
-  })  
+  })
 })

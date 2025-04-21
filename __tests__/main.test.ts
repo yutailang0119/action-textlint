@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals'
 import * as path from 'path'
 import url from 'url'
-import {expect} from '@jest/globals'
+import { expect } from '@jest/globals'
 import * as core from '../__fixtures__/core.js'
 
 jest.unstable_mockModule('@actions/core', () => core)
@@ -28,23 +28,16 @@ describe('main.ts', () => {
   it('test runs with json file', async () => {
     core.getInput.mockImplementation((name) => {
       if (name === 'report-path') {
-        return path.join(
-          __dirname,
-          'resource',
-          'textlint-report.json'
-        )
+        return path.join(__dirname, 'resource', 'textlint-report.json')
       } else {
         return ''
       }
     })
 
     await run()
-    expect(core.setFailed).toHaveBeenNthCalledWith(
-      1,
-      'textlint with 4 errors'
-    )
+    expect(core.setFailed).toHaveBeenNthCalledWith(1, 'textlint with 4 errors')
   })
-  
+
   it('test runs with textlint output', async () => {
     core.getInput.mockImplementation((name) => {
       if (name === 'textlint-output') {
@@ -83,7 +76,6 @@ describe('main.ts', () => {
       }
     })
 
-    
     await run()
 
     expect(core.setFailed).not.toHaveBeenCalled()
