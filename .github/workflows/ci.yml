@@ -54,6 +54,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Test Local Action
+        id: test-action
         uses: ./
         with:
           report-path:
