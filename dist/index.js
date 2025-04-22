@@ -1,6 +1,6 @@
+import require$$1 from 'fs';
 import require$$0 from 'os';
 import require$$0$1 from 'crypto';
-import require$$1 from 'fs';
 import require$$1$5 from 'path';
 import require$$2 from 'http';
 import require$$3 from 'https';
@@ -27246,39 +27246,84 @@ function requireCore () {
 
 var coreExports = requireCore();
 
-/**
- * Waits for a number of milliseconds.
- *
- * @param milliseconds The number of milliseconds to wait.
- * @returns Resolves with 'done!' after the wait is over.
- */
-async function wait(milliseconds) {
-    return new Promise((resolve) => {
-        if (isNaN(milliseconds))
-            throw new Error('milliseconds is not a number');
-        setTimeout(() => resolve('done!'), milliseconds);
-    });
+const echoMessages = (annotations) => {
+    for (const annotation of annotations) {
+        if (annotation.severityLevel === 'error') {
+            coreExports.error(annotation.message, annotation.properties);
+        }
+        else {
+            coreExports.warning(annotation.message, annotation.properties);
+        }
+    }
+};
+
+class Annotation {
+    severityLevel;
+    message;
+    properties;
+    constructor(severity, message, file, loc) {
+        this.severityLevel = severity === 2 ? 'error' : 'warning';
+        this.message = message;
+        this.properties = {
+            file,
+            startLine: loc.start.line,
+            endLine: loc.end.line,
+            startColumn: loc.start.column,
+            endColumn: loc.end.column
+        };
+    }
 }
 
-/**
- * The main function for the action.
- *
- * @returns Resolves when the action is complete.
- */
+const parseReport = (json, ignoreWarnings) => {
+    const results = JSON.parse(json);
+    const annotations = results.flatMap((result) => {
+        return result.messages.map((message) => {
+            return new Annotation(message.severity, `${message.message} (${message.ruleId})`, result.filePath, {
+                start: {
+                    line: message.loc.start.line,
+                    column: message.loc.start.column
+                },
+                end: {
+                    line: message.loc.end.line,
+                    column: message.loc.end.column
+                }
+            });
+        });
+    });
+    if (ignoreWarnings === true) {
+        return annotations.filter((annotation) => {
+            return annotation.severityLevel !== 'warning';
+        });
+    }
+    else {
+        return annotations;
+    }
+};
+
 async function run() {
     try {
-        const ms = coreExports.getInput('milliseconds');
-        // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        coreExports.debug(`Waiting ${ms} milliseconds ...`);
-        // Log the current timestamp, wait, then log the new timestamp
-        coreExports.debug(new Date().toTimeString());
-        await wait(parseInt(ms, 10));
-        coreExports.debug(new Date().toTimeString());
-        // Set outputs for other workflow steps to use
-        coreExports.setOutput('time', new Date().toTimeString());
+        const json = () => {
+            const json = coreExports.getInput('textlint-output', { required: false });
+            if (json === '') {
+                const reportPath = coreExports.getInput('report-path', { required: false });
+                return require$$1.readFileSync(reportPath, 'utf-8');
+            }
+            else {
+                return json;
+            }
+        };
+        const ignoreWarnings = coreExports.getBooleanInput('ignore-warnings');
+        const annotations = parseReport(json(), ignoreWarnings);
+        echoMessages(annotations);
+        const errors = annotations.filter((annotation) => {
+            return annotation.severityLevel === 'error';
+        });
+        if (errors.length) {
+            const unit = errors.length === 1 ? 'error' : 'errors';
+            throw Error(`textlint with ${errors.length} ${unit}`);
+        }
     }
     catch (error) {
-        // Fail the workflow run if an error occurs
         if (error instanceof Error)
             coreExports.setFailed(error.message);
     }
