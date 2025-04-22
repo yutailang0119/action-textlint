@@ -13,10 +13,11 @@ const { run } = await import('../src/main.js')
 describe('main.ts', () => {
   beforeEach(() => {
     core.getBooleanInput.mockImplementation((name) => {
-      if (name === 'ignore-warnings') {
-        return false
-      } else {
-        return false
+      switch (name) {
+        case 'ignore-warnings':
+          return false
+        default:
+          return false
       }
     })
   })
@@ -27,10 +28,11 @@ describe('main.ts', () => {
 
   it('test runs with json file', async () => {
     core.getInput.mockImplementation((name) => {
-      if (name === 'report-path') {
-        return path.join(__dirname, 'resource', 'textlint-report.json')
-      } else {
-        return ''
+      switch (name) {
+        case 'report-path':
+          return path.join(__dirname, 'resource', 'textlint-report.json')
+        default:
+          return ''
       }
     })
 
@@ -40,39 +42,40 @@ describe('main.ts', () => {
 
   it('test runs with textlint output', async () => {
     core.getInput.mockImplementation((name) => {
-      if (name === 'textlint-output') {
-        return `[
-          {
-            "messages":[
-              {
-                "type":"lint",
-                "ruleId":"sample-rule/no-weak-phrase",
-                "message":"adverbs can weaken meaning",
-                "index":12,
-                "line":3,
-                "column":6,
-                "range":[
-                  12,
-                  13
-                ],
-                "loc":{
-                  "start":{
-                    "line":3,
-                    "column":6
+      switch (name) {
+        case 'textlint-output':
+          return `[
+            {
+              "messages":[
+                {
+                  "type":"lint",
+                  "ruleId":"sample-rule/no-weak-phrase",
+                  "message":"adverbs can weaken meaning",
+                  "index":12,
+                  "line":3,
+                  "column":6,
+                  "range":[
+                    12,
+                    13
+                  ],
+                  "loc":{
+                    "start":{
+                      "line":3,
+                      "column":6
+                    },
+                    "end":{
+                      "line":3,
+                      "column":7
+                    }
                   },
-                  "end":{
-                    "line":3,
-                    "column":7
-                  }
-                },
-                "severity":1
-              }
-            ],
-            "filePath":"Foo.md"
-          }
-        ]`
-      } else {
-        return ''
+                  "severity":1
+                }
+              ],
+              "filePath":"Foo.md"
+            }
+          ]`
+        default:
+          return ''
       }
     })
 
