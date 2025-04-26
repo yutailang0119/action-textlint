@@ -37,6 +37,7 @@ describe('main.ts', () => {
     })
 
     await run()
+
     expect(core.setFailed).toHaveBeenNthCalledWith(1, 'textlint with 4 errors')
   })
 
