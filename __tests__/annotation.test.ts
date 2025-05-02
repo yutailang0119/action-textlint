@@ -6,7 +6,7 @@ describe('annotation.ts', () => {
     jest.resetAllMocks()
   })
 
-  it('test Annotation.constructor with warning', () => {
+  it('Annotation.constructor with warning', () => {
     const annotation = new Annotation(
       1,
       'adverbs can weaken meaning (sample-rule/no-weak-phrase)',
@@ -35,7 +35,7 @@ describe('annotation.ts', () => {
     })
   })
 
-  it('test Annotation.constructor with error', () => {
+  it('Annotation.constructor with error', () => {
     const annotation = new Annotation(
       2,
       'This is a commonly misspelled word. Correct it to useful (sample-rule/misspellings)',
@@ -64,7 +64,7 @@ describe('annotation.ts', () => {
     })
   })
 
-  it('test Annotation.constructor with other', () => {
+  it('Annotation.constructor with other', () => {
     const annotation1 = new Annotation(NaN, '', 'Foo.md', {
       start: { line: 0, column: 0 },
       end: { line: 0, column: 1 }

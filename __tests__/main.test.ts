@@ -26,7 +26,7 @@ describe('main.ts', () => {
     jest.resetAllMocks()
   })
 
-  it('test runs with json file', async () => {
+  it('runs with json file', async () => {
     core.getInput.mockImplementation((name) => {
       switch (name) {
         case 'report-path':
@@ -41,7 +41,7 @@ describe('main.ts', () => {
     expect(core.setFailed).toHaveBeenNthCalledWith(1, 'textlint with 4 errors')
   })
 
-  it('test runs with textlint output', async () => {
+  it('runs with textlint output', async () => {
     core.getInput.mockImplementation((name) => {
       switch (name) {
         case 'textlint-output':
