@@ -1,4 +1,4 @@
-import fs from 'fs'
+import * as fs from 'fs'
 import * as core from '@actions/core'
 import { echoMessages } from './command.js'
 import { parseReport } from './parser.js'
