@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals'
+import { jest } from '@jest/globals'
 import { Annotation } from '../src/annotation.js'
 import { parseReport } from '../src/parser.js'
 
@@ -89,6 +89,10 @@ const json = `[
 ]`
 
 describe('parser.ts', () => {
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
   it('test parse', () => {
     const annotation1 = new Annotation(
       1,
