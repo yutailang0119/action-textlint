@@ -1,24 +1,25 @@
-import fs from 'fs'
+import * as fs from 'fs'
 import * as core from '@actions/core'
-import {echoMessages} from './command'
-import {parseReport} from './parser'
+import { echoMessages } from './command.js'
+import { parseReport } from './parser.js'
 
-async function run(): Promise<void> {
+export async function run(): Promise<void> {
   try {
-    let json: string
-    const textlintOutput = core.getInput('textlint-output', {required: false})
-    if (textlintOutput === '') {
-      const reportPath = core.getInput('report-path', {required: false})
-      json = fs.readFileSync(reportPath, 'utf-8')
-    } else {
-      json = textlintOutput
+    const json = () => {
+      const json = core.getInput('textlint-output', { required: false })
+      if (json === '') {
+        const reportPath = core.getInput('report-path', { required: false })
+        return fs.readFileSync(reportPath, 'utf-8')
+      } else {
+        return json
+      }
     }
     const ignoreWarnings = core.getBooleanInput('ignore-warnings')
 
-    const annotations = parseReport(json, ignoreWarnings)
+    const annotations = parseReport(json(), ignoreWarnings)
     echoMessages(annotations)
 
-    const errors = annotations.filter(annotation => {
+    const errors = annotations.filter((annotation) => {
       return annotation.severityLevel === 'error'
     })
     if (errors.length) {
@@ -29,5 +30,3 @@ async function run(): Promise<void> {
     if (error instanceof Error) core.setFailed(error.message)
   }
 }
-
-run()
