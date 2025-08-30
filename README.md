@@ -1,6 +1,6 @@
 # GitHub Action for textlint
 
-![CI](https://github.com/actions/action-textlint/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/yutailang0119/action-textlint/actions/workflows/ci.yml/badge.svg)
 
 This Action generates annotations from [textlint](https://textlint.github.io)
 Report JSON.  
