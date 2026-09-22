@@ -33,7 +33,7 @@ jobs:
         id: run-textlint
         run: |
           echo "textlint-output=$(./node_modules/.bin/textlint 'docs/**/*.md' -f json || true)" >> "$GITHUB_OUTPUT"
-      - uses: yutailang0119/action-textlint@v4
+      - uses: yutailang0119/action-textlint@v6
         with:
           textlint-output: ${{ steps.run-textlint.outputs.textlint-output }}
           ignore-warnings: true # Ignore Lint Warnings
